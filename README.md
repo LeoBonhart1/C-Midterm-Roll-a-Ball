@@ -1,2 +1,2 @@
 # C-Midterm-Roll-a-Ball
-EgeLagap - 205040092
+Ege Lagap - 205040092
