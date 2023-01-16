@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 using UnityEngine.UI;
 
@@ -6,6 +6,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 	
+	public float jumpHeight = 7f;
+	public bool isGrounded;
 	public float speed;
 	public Text countText;
 	public Text winText;
@@ -32,6 +34,14 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
 		ballRb.AddForce (movement * speed);
+		
+		 if (isGrounded)
+    {
+       if (Input.GetButtonDown("Jump"))
+       {
+       ballRb.AddForce(Vector3.up * jumpHeight);
+       }
+    }
 	}
 
 	void OnTriggerEnter(Collider other) 
@@ -55,4 +65,21 @@ public class PlayerController : MonoBehaviour {
 			winText.text = "You Win!";
 		}
 	}
+ 
+ void OnCollisionEnter(Collision other)
+ {
+     if (other.gameObject.tag == "Ground")
+     {
+         isGrounded = true;
+     }
+ }
+ 
+ void OnCollisionExit(Collision other)
+ {
+     if (other.gameObject.tag == "Ground")
+     {
+         isGrounded = false;
+     }
+ }
+
 }
